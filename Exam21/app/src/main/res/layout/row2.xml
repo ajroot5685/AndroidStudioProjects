@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/textview_style"
+    android:layout_margin="10dp"
+    android:id="@+id/row2_layout">
+
+    <TextView
+        android:id="@+id/num2_textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="10dp"
+        android:text="제 품 명 "
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/num2_textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="10dp"
+        android:text="제품가격 "
+        android:textSize="18sp" />
+
+
+
+</LinearLayout>

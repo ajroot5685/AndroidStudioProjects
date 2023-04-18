@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/call_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:src="@drawable/baseline_account_circle_24"
+        >
+    </ImageView>
+    <LinearLayout
+        android:id="@+id/descriptionLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/show_name"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:text="이      름"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/description1"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="test1.test1.test1.test1"
+                >
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/show_company"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:text="회 사 명"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/description2"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="test2.test2.test2.test2"
+                >
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/show_call"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:text="전화번호"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/description3"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="test1.test1.test1.test1"
+                >
+
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/countBtn"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="0"></Button>
+
+</LinearLayout>

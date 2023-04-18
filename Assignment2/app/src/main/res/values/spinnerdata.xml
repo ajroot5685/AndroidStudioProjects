@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_category">
+        카테고리를 선택하세요
+    </string>
+    <string-array name="category_arrays">
+        <item>OUTER</item>
+        <item>TOP</item>
+        <item>BOTTOM</item>
+        <item>ACC</item>
+    </string-array>
+</resources>
