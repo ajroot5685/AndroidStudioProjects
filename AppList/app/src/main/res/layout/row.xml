@@ -18,7 +18,7 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/applabel1"
+            android:id="@+id/applabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
