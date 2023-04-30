@@ -9,11 +9,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Myfragmentapp"
+        android:theme="@style/Theme.MyDynamicFrag"
         tools:targetApi="31">
-        <activity
-            android:name=".SecondActivity"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
