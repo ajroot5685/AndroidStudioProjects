@@ -1,4 +1,4 @@
-package com.example.myfragmentapp
+package com.example.mydynamicfraglab
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

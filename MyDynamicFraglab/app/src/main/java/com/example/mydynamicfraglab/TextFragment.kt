@@ -1,4 +1,4 @@
-package com.example.myfragmentapp
+package com.example.mydynamicfraglab
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.example.myfragmentapp.databinding.FragmentTextBinding
+import com.example.mydynamicfraglab.databinding.FragmentTextBinding
 
 class TextFragment : Fragment() {
     var binding: FragmentTextBinding?=null
@@ -24,16 +24,16 @@ class TextFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val i = requireActivity().intent
-        val imgNum = i.getIntExtra("imgNum", -1)
-        if(imgNum!=-1){
-            binding!!.textView.text=data[imgNum]
-        }else{
+//        super.onViewCreated(view, savedInstanceState)
+//        val i = requireActivity().intent
+//        val imgNum = i.getIntExtra("imgNum", -1)
+//        if(imgNum!=-1){
+//            binding!!.textView.text=data[imgNum]
+//        }else{
             model.selectedNum.observe(viewLifecycleOwner, Observer {
                 binding!!.textView.text=data[it]
             })
-        }
+//        }
     }
 
     override fun onDestroyView() {
