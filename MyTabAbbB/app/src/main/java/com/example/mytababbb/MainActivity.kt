@@ -6,7 +6,8 @@ import com.example.mytababbb.databinding.ActivityMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
-    val textarr = arrayListOf<String>("이미지", "리스트")
+    val textarr = arrayListOf<String>("이미지", "리스트", "팀소개")
+    val imgarr = arrayListOf<Int>(R.drawable.baseline_agriculture_24,R.drawable.baseline_alt_route_24,R.drawable.baseline_alt_route_24)
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabLayout, binding.viewpager){
             tab, pos->
             tab.text=textarr[pos]
+            tab.setIcon(imgarr[pos])
         }.attach()
     }
 }

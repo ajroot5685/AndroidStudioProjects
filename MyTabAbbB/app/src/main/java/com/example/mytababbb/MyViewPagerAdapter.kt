@@ -6,13 +6,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class MyViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
-        return 2
+        return 3
     }
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0-> ImageFragment()
             1-> ItemFragment()
+            2-> TeamFragment()
             else-> ImageFragment()
         }
     }
