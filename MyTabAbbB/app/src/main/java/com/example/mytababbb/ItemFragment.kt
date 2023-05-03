@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.mydynamicfrag.MyItemRecyclerViewAdapter
-import com.example.mytababbb.R
 
 class ItemFragment : Fragment() {
 

@@ -3,11 +3,12 @@ package com.example.mytababbb
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mytababbb.databinding.ActivityMainBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
+    val textarr = arrayListOf<String>("이미지", "리스트")
     lateinit var binding: ActivityMainBinding
-    val imageFrag= ImageFragment()
-    val itemFrag= ItemFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
@@ -16,26 +17,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initLayout(){
-        val fragment = supportFragmentManager.beginTransaction()
-        fragment.replace(R.id.frameLayout, imageFrag)
-        fragment.commit()
-        binding.apply {
-            button.setOnClickListener{
-                if(!imageFrag.isVisible){
-                    val fragment = supportFragmentManager.beginTransaction()
-                    fragment.addToBackStack(null)
-                    fragment.replace(R.id.frameLayout, imageFrag)
-                    fragment.commit()
-                }
-            }
-            button2.setOnClickListener{
-                if(!itemFrag.isVisible){
-                    val fragment = supportFragmentManager.beginTransaction()
-                    fragment.addToBackStack(null)
-                    fragment.replace(R.id.frameLayout, itemFrag)
-                    fragment.commit()
-                }
-            }
-        }
+        binding.viewpager.adapter=MyViewPagerAdapter(this)
+        TabLayoutMediator(binding.tabLayout, binding.viewpager){
+            tab, pos->
+            tab.text=textarr[pos]
+        }.attach()
     }
 }
