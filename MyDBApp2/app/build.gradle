@@ -8,11 +8,11 @@ android {
         viewBinding true
     }
 
-    namespace 'com.example.mydbapp'
+    namespace 'com.example.mydbapp2'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.mydbapp"
+        applicationId "com.example.mydbapp2"
         minSdk 30
         targetSdk 33
         versionCode 1
