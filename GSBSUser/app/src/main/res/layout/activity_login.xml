@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+    <LinearLayout
+        android:id="@+id/login_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/login_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_android_black_24dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="개발새발에 오신 것을 환영합니다!"
+            android:gravity="center"
+            android:textSize="18dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/login_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/login_logo"
+        app:layout_constraintBottom_toTopOf="@id/login_SNS"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <EditText
+            android:id="@+id/login_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:layout_margin="10dp"
+            android:ems="15"
+            android:layout_gravity="center"
+            android:hint="email@example.com"/>
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_margin="10dp"
+            android:ems="15"
+            android:layout_gravity="center"
+            android:hint="password"/>
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="15"
+            android:text="이메일로 로그인 하기"/>
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="15"
+            android:text="회원가입"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/login_SNS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/login_input"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="----------------- SNS로 1초만에 로그인 -----------------"
+            android:gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@drawable/ic_launcher_foreground"/>
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@drawable/ic_launcher_foreground"/>
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:srcCompat="@drawable/ic_launcher_foreground"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
