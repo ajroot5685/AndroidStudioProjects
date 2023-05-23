@@ -3,26 +3,23 @@ package com.example.mygmap2
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.example.mygmap2.databinding.ActivityMainBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolygonOptions
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
@@ -33,6 +30,11 @@ class MainActivity : AppCompatActivity() {
     var loc = LatLng(37.554752,126.970631)
 
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    lateinit var locationRequest: LocationRequest
+    lateinit var locationRequest2: LocationRequest
+    lateinit var locationCallback: LocationCallback
+
+    var startupdate = false
 
     val permissions= arrayOf(
         android.Manifest.permission.ACCESS_FINE_LOCATION,
@@ -40,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     val gpsSettingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(checkGPSProvider()){
-            getLastLocation()
+//            getLastLocation()
+            startLocationUpdate()
         }else{
             setCurrentLocation(loc)
         }
@@ -50,7 +53,8 @@ class MainActivity : AppCompatActivity() {
         permissions->when{
             permissions.getOrDefault(android.Manifest.permission.ACCESS_FINE_LOCATION,false)||
                     permissions.getOrDefault(android.Manifest.permission.ACCESS_COARSE_LOCATION,false)->{
-                        getLastLocation()
+//                        getLastLocation()
+                        startLocationUpdate()
                     }
         else->{
             setCurrentLocation(loc)
@@ -112,17 +116,89 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initmap() {
+        initLocation()
         val mapFragment=supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync {
             googleMap = it
-            initLocation()
+//            initLocation()
         }
     }
 
     private fun initLocation() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
+
+        locationRequest=LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
+            .setMinUpdateIntervalMillis(5000).build()
+
+        locationRequest2=LocationRequest.Builder(Priority.PRIORITY_BALANCED_POWER_ACCURACY, 10000)
+            .setMinUpdateIntervalMillis(5000).build()
+
+        locationCallback = object : LocationCallback(){
+            override fun onLocationResult(location: LocationResult) {
+                if(location.locations.size==0) return
+                loc = LatLng(
+                    location.locations[location.locations.size-1].latitude,
+                    location.locations[location.locations.size-1].longitude
+                )
+                setCurrentLocation(loc)
+                Log.i("location", "LocationCallback()")
+            }
+        }
+
+//        getLastLocation()
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("location", "onResume()")
+        if(!startupdate)
+            startLocationUpdate()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("location", "onPause()")
+        stopLocationUpdate()
+    }
+
+    private fun stopLocationUpdate(){
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+        startupdate=false
+        Log.i("location", "stopLocationUpdate()")
+    }
+
+    private fun startLocationUpdate(){
+        when{
+            checkFineLocationPermission()->{
+                if(!checkGPSProvider()){
+                    showGPSSetting()
+                }else{
+                    startupdate=true
+                    fusedLocationProviderClient.requestLocationUpdates(
+                        locationRequest, locationCallback, Looper.getMainLooper()
+                    )
+                    Log.i("location", "startLocationUpdate()")
+                }
+            }
+
+            checkCoarseLocationPermission()->{
+                startupdate = true
+                fusedLocationProviderClient.requestLocationUpdates(
+                    locationRequest2, locationCallback, Looper.getMainLooper()
+                )
+                Log.i("location2", "startLocationUpdate()")
+            }
+
+            ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)->{
+                showPermissionRequestDlg()
+            }
+
+            else->{
+                locationPermissionRequest.launch(permissions)
+            }
+        }
+    }
+
 
     fun setCurrentLocation(location:LatLng){
         val option = MarkerOptions()
