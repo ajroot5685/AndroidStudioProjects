@@ -1,0 +1,86 @@
+package com.example.mymp3service
+
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.SystemClock
+import com.example.mymp3service.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+
+    lateinit var songlist:Array<String>
+    lateinit var song:String
+
+    var runThread=false
+    var thread:ProgressThread?=null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initLayout()
+    }
+
+    private fun initLayout() {
+        songlist= resources.getStringArray(R.array.songlist)
+        song = songlist[0]
+
+        binding.apply {
+            listview.setOnItemClickListener { parent, view, position, id ->
+                song = songlist[position]
+                startPlay()
+            }
+
+            btnpaly.setOnClickListener {
+                startPlay()
+            }
+
+            btnstop.setOnClickListener {
+                stopPlay()
+            }
+        }
+        registerReceiver(receiver, IntentFilter("com.example.MP3ACTIVITY"))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
+    }
+
+    private fun stopPlay() {
+        runThread = false
+        binding.progressBar.progress=0
+    }
+
+    private fun startPlay() {
+        runThread=true
+        if(thread==null || !thread!!.isAlive){
+            binding.progressBar.progress=0
+            thread = ProgressThread()
+            thread!!.start()
+        }
+    }
+
+    inner class ProgressThread:Thread(){
+        override fun run() {
+            while(runThread){
+                binding.progressBar.incrementProgressBy(1000)
+                SystemClock.sleep(1000)
+                if(binding.progressBar.progress == binding.progressBar.max) {
+                    runThread = false
+                    binding.progressBar.progress=0
+                }
+            }
+        }
+    }
+
+    var receiver = object: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+        }
+    }
+}
