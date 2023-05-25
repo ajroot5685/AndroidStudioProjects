@@ -1,5 +1,6 @@
 package com.example.myserviceapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -45,10 +46,12 @@ class MainActivity : AppCompatActivity() {
                 thread=null
             }
             btnStartService.setOnClickListener{
-
+                val intent = Intent(this@MainActivity, MyService::class.java)
+                startService(intent)
             }
             btnStopService.setOnClickListener{
-
+                val intent = Intent(this@MainActivity, MyService::class.java)
+                stopService(intent)
             }
         }
     }
