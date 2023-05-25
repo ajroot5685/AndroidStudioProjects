@@ -44,6 +44,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         registerReceiver(receiver, IntentFilter("com.example.MP3ACTIVITY"))
+
+        val intent = Intent(this, MyService::class.java)
+        startService(intent)
     }
 
     override fun onDestroy() {
@@ -52,11 +55,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopPlay() {
+        val serviceBRIntent = Intent("com.example.MP3SERVICE")
+        serviceBRIntent.putExtra("mode", "stop")
+        sendBroadcast(serviceBRIntent)
+
         runThread = false
         binding.progressBar.progress=0
     }
 
     private fun startPlay() {
+        val serviceBRIntent = Intent("com.example.MP3SERVICE")
+        serviceBRIntent.putExtra("mode", "play")
+        serviceBRIntent.putExtra("song", song)
+        sendBroadcast(serviceBRIntent)
+
         runThread=true
         if(thread==null || !thread!!.isAlive){
             binding.progressBar.progress=0
@@ -80,7 +92,29 @@ class MainActivity : AppCompatActivity() {
 
     var receiver = object: BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
-
+            val mode = intent!!.getStringExtra("mode")
+            if(mode != null){
+                when(mode){
+                    "play"->{
+                        binding.progressBar.progress=0
+                        binding.progressBar.max=intent.getIntExtra("duration", -1)
+                    }
+                    "stop"->{
+                        runThread = false
+                        binding.progressBar.progress=0
+                    }
+                    "playing"->{
+                        runThread = true
+                        binding.progressBar.max = intent.getIntExtra("duration",-1)
+                        binding.progressBar.progress = intent.getIntExtra("currentPos",-1)
+                        song = intent.getStringExtra("song")!!
+                        if(thread==null || !thread!!.isAlive){
+                            thread = ProgressThread()
+                            thread!!.start()
+                        }
+                    }
+                }
+            }
         }
     }
 }

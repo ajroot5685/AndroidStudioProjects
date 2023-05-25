@@ -28,6 +28,15 @@ class MyService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if(player!=null && player!!.isPlaying){
+            val mainBRIntent = Intent("com.example.MP3ACTIVITY")
+            mainBRIntent.putExtra("mode", "playing")
+            mainBRIntent.putExtra("song", song)
+            mainBRIntent.putExtra("currentPos", player!!.currentPosition)
+            mainBRIntent.putExtra("duration", player!!.duration)
+            sendBroadcast(mainBRIntent)
+        }
+
         return START_STICKY
     }
 
@@ -38,7 +47,18 @@ class MyService : Service() {
     }
 
     private fun playControl(intent: Intent?) {
-
+        val mode = intent!!.getStringExtra("mode")
+        if(mode!=null){
+            when(mode){
+                "play"->{
+                    song = intent.getStringExtra("song")!!
+                    startPlay()
+                }
+                "stop"->{
+                    stopPlay()
+                }
+            }
+        }
     }
 
     private fun startPlay(){
@@ -53,7 +73,16 @@ class MyService : Service() {
         player = MediaPlayer.create(this, songid)
         player!!.start()
 
+        val mainBRIntent = Intent("com.example.MP3ACTIVITY")
+        mainBRIntent.putExtra("mode", "play")
+        mainBRIntent.putExtra("duration", player!!.duration)
+        sendBroadcast(mainBRIntent)
+
         player!!.setOnCompletionListener {
+            val mainBRIntent = Intent("com.example.MP3ACTIVITY")
+            mainBRIntent.putExtra("mode", "stop")
+            sendBroadcast(mainBRIntent)
+
             stopPlay()
         }
     }
