@@ -36,10 +36,10 @@ class MainActivity : AppCompatActivity() {
 
     fun getMessage(intent: Intent?) {
         if(intent!=null){
-            if (intent.hasExtra("msgSender") and intent.hasExtra("msgBody")){
+            if (intent.hasExtra("msgSender") and intent.hasExtra("msgBody")) {
                 val msgSender = intent.getStringExtra("msgSender")
                 val msgBody = intent.getStringExtra("msgBody")
-                Toast.makeText(this, "보낸번호 :"+msgSender+"\n"+msgBody, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "보낸번호 :" + msgSender + "\n" + msgBody, Toast.LENGTH_SHORT).show()
             }
         }
     }
