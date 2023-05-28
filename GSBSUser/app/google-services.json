@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "29572103115",
+    "firebase_url": "https://gsbsuser-ab7b8-default-rtdb.firebaseio.com",
+    "project_id": "gsbsuser-ab7b8",
+    "storage_bucket": "gsbsuser-ab7b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29572103115:android:1ede28c55bedfff4fbd44e",
+        "android_client_info": {
+          "package_name": "com.example.gsbsuser"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9QC6jsNbYDLh1Awx-JXj6YJcHsjXjKlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
