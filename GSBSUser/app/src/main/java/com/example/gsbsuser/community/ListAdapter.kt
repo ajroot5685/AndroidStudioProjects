@@ -1,4 +1,4 @@
-package com.example.gsbsuser
+package com.example.gsbsuser.community
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import com.example.gsbsuser.databinding.RowContentBinding
 
 class ListAdapter(val items:MutableList<MyContent>):RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     interface OnItemClickListener{
-        fun onItemClick(data:MyContent,position:Int)
+        fun onItemClick(data: MyContent, position:Int)
     }
-    var itemClickListener:OnItemClickListener?=null
+    var itemClickListener: OnItemClickListener?=null
 
     inner class ViewHolder(val binding: RowContentBinding):RecyclerView.ViewHolder(binding.root){
         init {

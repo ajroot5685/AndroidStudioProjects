@@ -1,6 +1,5 @@
-package com.example.gsbsuser
+package com.example.gsbsuser.community
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gsbsuser.R
 import com.example.gsbsuser.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
@@ -32,11 +32,11 @@ class ListFragment : Fragment() {
         var list: ArrayList<MyContent> = requireActivity().intent!!.extras!!.get("DataList") as ArrayList<MyContent>
         Log.e("ListFragment", "Data List: ${list}")
 
-        adapter=ListAdapter(list)
+        adapter= ListAdapter(list)
         binding!!.listView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         binding!!.listView.adapter=adapter
 
-        adapter.itemClickListener = object:ListAdapter.OnItemClickListener{
+        adapter.itemClickListener = object: ListAdapter.OnItemClickListener {
             override fun onItemClick(data: MyContent, position: Int) {
                 model2.setData(data)
                 val fragment = requireActivity().supportFragmentManager.beginTransaction()

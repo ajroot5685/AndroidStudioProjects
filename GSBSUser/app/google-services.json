@@ -1,27 +1,45 @@
 {
   "project_info": {
-    "project_number": "29572103115",
-    "firebase_url": "https://gsbsuser-ab7b8-default-rtdb.firebaseio.com",
-    "project_id": "gsbsuser-ab7b8",
-    "storage_bucket": "gsbsuser-ab7b8.appspot.com"
+    "project_number": "208988108432",
+    "firebase_url": "https://gsbs-1e565-default-rtdb.firebaseio.com",
+    "project_id": "gsbs-1e565",
+    "storage_bucket": "gsbs-1e565.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:29572103115:android:1ede28c55bedfff4fbd44e",
+        "mobilesdk_app_id": "1:208988108432:android:c57b3ea5a03927411aca15",
         "android_client_info": {
           "package_name": "com.example.gsbsuser"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "208988108432-2486o95k2jt742us2e2mfdgqfq0o2e9r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gsbsuser",
+            "certificate_hash": "525c44affa083b51e97f3be954f870165c062ce6"
+          }
+        },
+        {
+          "client_id": "208988108432-h8fv5555kaop4t4s6ks7v9dme9eufvi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyB9QC6jsNbYDLh1Awx-JXj6YJcHsjXjKlA"
+          "current_key": "AIzaSyA7JlVLqBwTk4BAd-vAjc1uMAn99cwOx7w"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208988108432-h8fv5555kaop4t4s6ks7v9dme9eufvi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

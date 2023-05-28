@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    tools:context=".login.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,13 +88,13 @@
                     app:srcCompat="@drawable/ic_launcher_foreground"/>
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/githubBtn"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     app:srcCompat="@drawable/ic_launcher_foreground"/>
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/anonymousBtn"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     app:srcCompat="@drawable/ic_launcher_foreground"/>

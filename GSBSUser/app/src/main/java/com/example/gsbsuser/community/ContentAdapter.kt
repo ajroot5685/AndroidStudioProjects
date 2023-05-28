@@ -1,4 +1,4 @@
-package com.example.gsbsuser
+package com.example.gsbsuser.community
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import com.example.gsbsuser.databinding.RowCommentBinding
 
 class ContentAdapter(val items:MutableList<MyComment>):RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
     interface OnItemClickListener{
-        fun onItemClick(data:MyComment,position:Int)
+        fun onItemClick(data: MyComment, position:Int)
     }
-    var itemClickListener:OnItemClickListener?=null
+    var itemClickListener: OnItemClickListener?=null
 
     inner class ViewHolder(val binding: RowCommentBinding): RecyclerView.ViewHolder(binding.root){
         init {

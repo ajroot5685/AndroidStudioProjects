@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountActivity">
+    tools:context=".account.AccountActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -87,6 +87,7 @@
                         android:textSize="15dp"
                         style="@style/Widget.AppCompat.Button.Small"/>
                     <TextView
+                        android:id="@+id/accountEmail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

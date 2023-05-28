@@ -1,4 +1,4 @@
-package com.example.gsbsuser
+package com.example.gsbsuser.community
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,7 +14,7 @@ class BoardFragment : Fragment() {
     var binding: FragmentBoardBinding?=null
     lateinit var adapter: ContentAdapter
     val model2: MyViewModel2 by activityViewModels()
-    lateinit var item:MyContent
+    lateinit var item: MyContent
 
     var dataList: ArrayList<MyComment> = arrayListOf(
         MyComment("writer1","content1","date1",1,0),

@@ -1,4 +1,4 @@
-package com.example.gsbsuser
+package com.example.gsbsuser.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,15 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
+import com.example.gsbsuser.MainActivity
+import com.example.gsbsuser.R
 import com.example.gsbsuser.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class RegisterFragment : Fragment() {
     var binding: FragmentRegisterBinding?=null
-    val model: MyViewModel by activityViewModels()
     var auth: FirebaseAuth?= null
+
+    private lateinit var accountdb: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +34,8 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
+        accountdb = Firebase.database.getReference("Accounts")
+
         binding!!.apply {
             registerBack.setOnClickListener {
                 val fragment = requireActivity().supportFragmentManager.beginTransaction()
@@ -39,22 +46,24 @@ class RegisterFragment : Fragment() {
             }
             registerComplete.setOnClickListener {
                 createUserId()
-
-
-//                val i= Intent(activity, MainActivity::class.java)
-//                startActivity(i)
             }
         }
     }
 
     private fun createUserId() {
-        var id:String = binding!!.registerId.text.toString()
-        id += "@gsbs.com"
-        auth?.createUserWithEmailAndPassword(id, binding!!.registerPw.text.toString())
+        var email = binding!!.registerId.text.toString().trim()
+        email += "@gsbs.com"
+        var password = binding!!.registerPw.text.toString().trim()
+        var name = binding!!.registerName.text.toString().trim()
+        var nickname = binding!!.registerNickname.text.toString().trim()
+        auth?.createUserWithEmailAndPassword(email, password)
             ?.addOnCompleteListener {
                 task ->
                 if(task.isSuccessful){
                     // Creating a user account
+
+                    // DB에 계정 추가
+                    addUserToDatabase(email, password, name, nickname, auth!!.currentUser!!.uid)
                     moveMainPage(task.result?.user)
                 }else if(task.exception?.message.isNullOrEmpty()){
                     // Show the error message
@@ -69,6 +78,10 @@ class RegisterFragment : Fragment() {
                     fragment.commit()
                 }
             }
+    }
+
+    private fun addUserToDatabase(email: String, password: String, name: String, nickname: String, uId:String) {
+        accountdb.child(uId).setValue(Account(email, password, name, nickname, uId))
     }
 
     // 로그인이 성공하면 다음 페이지로 넘어가는 함수

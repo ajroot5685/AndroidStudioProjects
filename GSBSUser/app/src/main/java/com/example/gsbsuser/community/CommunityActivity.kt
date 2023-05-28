@@ -1,9 +1,10 @@
-package com.example.gsbsuser
+package com.example.gsbsuser.community
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import com.example.gsbsuser.MainActivity
+import com.example.gsbsuser.R
 import com.example.gsbsuser.databinding.ActivityCommunityBinding
 
 class CommunityActivity : AppCompatActivity() {
