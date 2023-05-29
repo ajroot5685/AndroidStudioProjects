@@ -1,13 +1,13 @@
-package com.example.gsbsuser.community
+package com.example.gsbsuser.community.comment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gsbsuser.databinding.RowCommentBinding
 
-class ContentAdapter(val items:MutableList<MyComment>):RecyclerView.Adapter<ContentAdapter.ViewHolder>() {
+class CommentAdapter(val items:MutableList<UserComment>):RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
     interface OnItemClickListener{
-        fun onItemClick(data: MyComment, position:Int)
+        fun onItemClick(data: UserComment, position:Int)
     }
     var itemClickListener: OnItemClickListener?=null
 
