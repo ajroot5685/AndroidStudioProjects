@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.gsbsuser.MainActivity
 import com.example.gsbsuser.R
+import com.example.gsbsuser.account.Info
 import com.example.gsbsuser.databinding.FragmentLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -25,6 +26,7 @@ class LoginFragment : Fragment() {
     var googleSignInClient: GoogleSignInClient ?=null
 
     private lateinit var accountdb: DatabaseReference
+    private lateinit var infodb: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
         accountdb = Firebase.database.getReference("Accounts")
+        infodb = Firebase.database.getReference("Info")
 
         // google 로그인
         //GoogleSignInClient 객체 초기화
@@ -208,6 +211,8 @@ class LoginFragment : Fragment() {
         val uId = user.uid
 
         val userRef = accountdb.child(uId).setValue(Account(email,"",name,"건국이",uId))
+
+        val infoRef = infodb.child(uId).setValue(Info(email,"010-0000-0000","","",""))
     }
 
 
