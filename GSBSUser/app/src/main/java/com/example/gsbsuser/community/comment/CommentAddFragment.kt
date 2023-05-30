@@ -1,4 +1,4 @@
-package com.example.gsbsuser.community.board
+package com.example.gsbsuser.community.comment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.example.gsbsuser.R
-import com.example.gsbsuser.account.Info
-import com.example.gsbsuser.databinding.FragmentBoardAddBinding
-import com.example.gsbsuser.databinding.FragmentRegisterBinding
+import com.example.gsbsuser.community.CommentViewModel
+import com.example.gsbsuser.community.board.Board
+import com.example.gsbsuser.community.board.BoardFragment
+import com.example.gsbsuser.databinding.FragmentCommentAddBinding
 import com.example.gsbsuser.login.Account
-import com.example.gsbsuser.login.LoginFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -24,19 +25,22 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class BoardAddFragment : Fragment() {
-    var binding: FragmentBoardAddBinding?=null
+class CommentAddFragment : Fragment() {
+    var binding: FragmentCommentAddBinding?=null
     var auth: FirebaseAuth?= null
     lateinit var currentUser: FirebaseUser
     lateinit var uid:String
+    val model: CommentViewModel by activityViewModels()
+    var boardId=""
     private lateinit var accountdb: DatabaseReference
     private lateinit var communitydb: DatabaseReference
+    private lateinit var commentdb: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentBoardAddBinding.inflate(layoutInflater, container, false)
+        binding = FragmentCommentAddBinding.inflate(layoutInflater, container, false)
         return binding!!.root
     }
 
@@ -48,21 +52,23 @@ class BoardAddFragment : Fragment() {
         accountdb = Firebase.database.getReference("Accounts")
         communitydb = Firebase.database.getReference("Community")
 
+        boardId = model.getBoardId()
+        commentdb = Firebase.database.getReference("Comments").child(boardId)
+
         initBtn()
     }
 
     private fun initBtn() {
         binding!!.apply {
-            var name = ""
+            var writer = ""
             var content = ""
 
             val currentDateTime = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
             val date = currentDateTime.format(formatter)
-            var writer = ""
 
             // accountdb 탐색하여 writer 초기화
-            accountdb.child(uid).addListenerForSingleValueEvent(object : ValueEventListener{
+            accountdb.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if(snapshot.exists()){
                         val data = snapshot.getValue(Account::class.java)
@@ -76,15 +82,39 @@ class BoardAddFragment : Fragment() {
             })
 
             addComplete.setOnClickListener {
-                name = addName.text.toString()
-                content = addContent.text.toString()
-                var boardId = Random().nextInt(10000000).toString()
-                var board:Board=Board(name, content, date, writer, 0, 0, boardId)
-                communitydb.child(boardId).setValue(board)
+                content = addComment.text.toString()
+                var commentId = (Random().nextInt(10000000)+10000000).toString()
+                var comment: UserComment = UserComment(writer, content, date, 0, uid, commentId)
+                commentdb.child(commentId).setValue(comment)
+                    .addOnCompleteListener {
+                            task->
+                        if(!task.isSuccessful){
+                            Toast.makeText(activity, "댓글 DB 등록 실패", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                var userRef = communitydb.child(boardId).child("comment")
+                userRef.get().addOnCompleteListener {
+                        task->
+                    if(task.isSuccessful){
+                        val snapshot = task.result
+                        if(snapshot.exists()){
+                            val commentCount = task.result.value.toString().toInt()+1
+                            userRef.setValue(commentCount)
+                                .addOnCompleteListener {
+                                        task->
+                                    if(!task.isSuccessful){
+                                        Toast.makeText(activity, "board comment DB 수정 실패2", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                        }
+                    }else{
+                        Toast.makeText(activity, "board comment DB 수정 실패", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 val fragment = requireActivity().supportFragmentManager.beginTransaction()
                 fragment.addToBackStack(null)
-                val boardFragment = BoardFragment()
-                fragment.replace(R.id.contentLayout, boardFragment)
+                val commentFragment = CommentFragment()
+                fragment.replace(R.id.contentLayout, commentFragment)
                 fragment.commit()
             }
         }

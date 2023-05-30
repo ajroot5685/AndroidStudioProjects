@@ -4,21 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gsbsuser.databinding.RowCommentBinding
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class CommentAdapter(val items:MutableList<UserComment>):RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class CommentAdapter(options: FirebaseRecyclerOptions<UserComment>):
+    FirebaseRecyclerAdapter<UserComment, CommentAdapter.ViewHolder>(options) {
     interface OnItemClickListener{
-        fun onItemClick(data: UserComment, position:Int)
+        fun onItemClick(position:Int)
     }
     var itemClickListener: OnItemClickListener?=null
 
-    inner class ViewHolder(val binding: RowCommentBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(val binding: RowCommentBinding):RecyclerView.ViewHolder(binding.root){
         init {
-
+            binding.commentLike.setOnClickListener {
+                itemClickListener!!.onItemClick(adapterPosition)
+            }
         }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return position;
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,14 +27,10 @@ class CommentAdapter(val items:MutableList<UserComment>):RecyclerView.Adapter<Co
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.commentWriter.text=items[position].writer
-        holder.binding.commentContent.text=items[position].content
-        holder.binding.commentDate.text=items[position].date
-        holder.binding.commentLike.text=items[position].like.toString()
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: UserComment) {
+        holder.binding.commentWriter.text=model.writer
+        holder.binding.commentContent.text=model.content
+        holder.binding.commentDate.text=model.date
+        holder.binding.commentLikeCount.text=model.like.toString()
     }
 }

@@ -76,6 +76,22 @@
                     android:text="댓글수"
                     android:textSize="10dp"
                     style="@style/Widget.AppCompat.Button.Small"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:id="@+id/board_likebtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="좋아요"
+                    android:textSize="10dp"/>
+                <Button
+                    android:id="@+id/board_addbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="댓글 작성하기"
+                    android:textSize="10dp"/>
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/commentView"
