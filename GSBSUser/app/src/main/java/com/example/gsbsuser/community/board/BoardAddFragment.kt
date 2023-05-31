@@ -79,7 +79,7 @@ class BoardAddFragment : Fragment() {
                 name = addName.text.toString()
                 content = addContent.text.toString()
                 var boardId = Random().nextInt(10000000).toString()
-                var board:Board=Board(name, content, date, writer, 0, 0, boardId)
+                var board:Board=Board(name, content, date, writer, 0, 0, boardId, uid)
                 communitydb.child(boardId).setValue(board)
                 val fragment = requireActivity().supportFragmentManager.beginTransaction()
                 fragment.addToBackStack(null)

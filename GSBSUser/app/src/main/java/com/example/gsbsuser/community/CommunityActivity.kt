@@ -13,23 +13,6 @@ import com.example.gsbsuser.databinding.ActivityCommunityBinding
 class CommunityActivity : AppCompatActivity() {
     lateinit var binding: ActivityCommunityBinding
 
-    var dataList: ArrayList<Board> = arrayListOf(
-        Board("name1","content1","date1","writer1",5,5),
-        Board("name2","content1","date1","writer1",5,5),
-        Board("name3","content1","date1","writer1",5,5),
-        Board("name4","content1","date1","writer1",5,5),
-        Board("name5","content1","date1","writer1",5,5),
-        Board("name6","content1","date1","writer1",5,5),
-        Board("name7","content1","date1","writer1",5,5),
-        Board("name8","content1","date1","writer1",5,5),
-        Board("name9","content1","date1","writer1",5,5),
-        Board("name10","content1","date1","writer1",5,5),
-        Board("name11","content1","date1","writer1",5,5),
-        Board("name12","content1","date1","writer1",5,5),
-        Board("name13","content1","date1","writer1",5,5),
-        Board("name14","content1","date1","writer1",5,5)
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCommunityBinding.inflate(layoutInflater)
@@ -53,7 +36,6 @@ class CommunityActivity : AppCompatActivity() {
         val boardFragment = BoardFragment()
         fragment.replace(R.id.contentLayout, boardFragment)
         fragment.commit()
-        intent.putExtra("DataList", dataList)
     }
 
 

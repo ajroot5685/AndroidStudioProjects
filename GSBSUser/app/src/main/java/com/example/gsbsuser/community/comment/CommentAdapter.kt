@@ -13,11 +13,15 @@ class CommentAdapter(options: FirebaseRecyclerOptions<UserComment>):
         fun onItemClick(position:Int)
     }
     var itemClickListener: OnItemClickListener?=null
+    var deleteClickListener: OnItemClickListener?=null
 
     inner class ViewHolder(val binding: RowCommentBinding):RecyclerView.ViewHolder(binding.root){
         init {
             binding.commentLike.setOnClickListener {
                 itemClickListener!!.onItemClick(adapterPosition)
+            }
+            binding.commentDelete.setOnClickListener {
+                deleteClickListener!!.onItemClick(adapterPosition)
             }
         }
     }

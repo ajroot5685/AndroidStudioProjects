@@ -9,8 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.example.gsbsuser.R
 import com.example.gsbsuser.community.CommentViewModel
-import com.example.gsbsuser.community.board.Board
-import com.example.gsbsuser.community.board.BoardFragment
 import com.example.gsbsuser.databinding.FragmentCommentAddBinding
 import com.example.gsbsuser.login.Account
 import com.google.firebase.auth.FirebaseAuth
