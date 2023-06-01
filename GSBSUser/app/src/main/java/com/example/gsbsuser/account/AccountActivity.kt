@@ -61,7 +61,6 @@ class AccountActivity : AppCompatActivity() {
                         info=Info(email,call,birth,major,introduce)
                         model.setData(info)
                         model.setuId(uid)
-                        Toast.makeText(this@AccountActivity, "model 적용 완료", Toast.LENGTH_LONG).show()
                     }
                     else{
                         Toast.makeText(this@AccountActivity, "error : snapshot이 존재하지않음", Toast.LENGTH_LONG).show()

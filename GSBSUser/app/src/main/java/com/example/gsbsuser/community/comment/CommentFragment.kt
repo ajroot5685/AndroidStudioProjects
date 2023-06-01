@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gsbsuser.R
 import com.example.gsbsuser.community.CommentViewModel
 import com.example.gsbsuser.community.board.Board
+import com.example.gsbsuser.community.board.BoardAddFragment
 import com.example.gsbsuser.community.board.BoardFragment
 import com.example.gsbsuser.databinding.FragmentCommentBinding
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -71,11 +72,16 @@ class CommentFragment : Fragment() {
     private fun initBtn() {
         binding!!.apply {
             boardAddbtn.setOnClickListener {
-                val fragment = requireActivity().supportFragmentManager.beginTransaction()
-                fragment.addToBackStack(null)
-                val commentAddFragment = CommentAddFragment()
-                fragment.replace(R.id.contentLayout, commentAddFragment)
-                fragment.commit()
+                val checkUser = FirebaseAuth.getInstance().currentUser
+                if(checkUser?.isAnonymous==true){ // 익명 사용자일 경우
+                    Toast.makeText(context, "익명 로그인의 경우 해당 기능을 이용할 수 없습니다.", Toast.LENGTH_LONG).show()
+                }else{
+                    val fragment = requireActivity().supportFragmentManager.beginTransaction()
+                    fragment.addToBackStack(null)
+                    val commentAddFragment = CommentAddFragment()
+                    fragment.replace(R.id.contentLayout, commentAddFragment)
+                    fragment.commit()
+                }
             }
             boardLikebtn.setOnClickListener {
                 var userRef = communitydb.child(boardId).child("like")

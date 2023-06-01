@@ -1,3 +1,16 @@
 package com.example.gsbsuser.community.board
 
-data class Board(var name:String="", var content:String="", var date:String="", var writer:String="", var like:Int=1, var comment:Int=1, var boardid:String="", var uid:String="")
+data class Board(
+    var name: String,
+    var content: String,
+    var date: String,
+    var writer: String,
+    var category: String,
+    var like: Int,
+    var comment: Int,
+    var boardid: String,
+    var uid: String
+) {
+    // 기본 생성자
+    constructor() : this("", "", "", "", "", -1, -1, "", "")
+}

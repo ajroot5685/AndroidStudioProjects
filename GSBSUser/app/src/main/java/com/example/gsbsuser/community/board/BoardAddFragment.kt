@@ -55,6 +55,7 @@ class BoardAddFragment : Fragment() {
         binding!!.apply {
             var name = ""
             var content = ""
+            var category = ""
 
             val currentDateTime = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -78,11 +79,11 @@ class BoardAddFragment : Fragment() {
             addComplete.setOnClickListener {
                 name = addName.text.toString()
                 content = addContent.text.toString()
+                category = addSpinner.selectedItem.toString()
                 var boardId = Random().nextInt(10000000).toString()
-                var board:Board=Board(name, content, date, writer, 0, 0, boardId, uid)
+                var board:Board=Board(name, content, date, writer, category, 0, 0, boardId, uid)
                 communitydb.child(boardId).setValue(board)
                 val fragment = requireActivity().supportFragmentManager.beginTransaction()
-                fragment.addToBackStack(null)
                 val boardFragment = BoardFragment()
                 fragment.replace(R.id.contentLayout, boardFragment)
                 fragment.commit()
