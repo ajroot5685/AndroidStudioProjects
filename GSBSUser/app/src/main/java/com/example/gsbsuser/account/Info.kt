@@ -7,5 +7,5 @@ data class Info(
     var major:String,
     var introduce:String
     ){
-    constructor(): this("","","","","")
+    constructor(): this("","","2000-01-01","","")
 }

@@ -2,7 +2,11 @@ package com.example.gsbsuser.account
 
 import android.app.Dialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.gsbsuser.databinding.EditIntroduceBinding
@@ -26,7 +30,10 @@ class EditIntroduceFragment:DialogFragment() {
 
         info=model.getData()
         binding.apply {
-            editIntroduce.setText(info.introduce)
+            editIntroduce.setText(info.introduce, TextView.BufferType.EDITABLE)
+
+            val currentLength = info.introduce.length
+            textCount.text = "$currentLength / 500"
         }
 
         val builder = AlertDialog.Builder(requireActivity())
@@ -46,7 +53,23 @@ class EditIntroduceFragment:DialogFragment() {
             dialog.dismiss()
         }
 
-        return builder.create()
+        val dialog = builder.create()
+
+        binding.editIntroduce?.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val currentLength = p0?.length ?: 0
+                binding.textCount.text = "$currentLength / 500"
+            }
+
+        })
+
+        return dialog
     }
 
     override fun onDestroyView() {
